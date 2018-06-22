@@ -1,0 +1,24 @@
+{
+    "name": "funayaki/rrule",
+    "description": "Rrule plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "require": {
+        "cakephp/cakephp": "^3.4",
+        "simshaun/recurr": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rrule\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rrule\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    }
+}
