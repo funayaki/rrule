@@ -71,4 +71,29 @@ class RrulesTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    public function testStringRrule()
+    {
+        // New
+        $rrule = $this->Rrules->newEntity();
+        $rrule->rrule = 'FREQ=YEARLY;INTERVAL=1;BYMONTH=1;BYMONTHDAY=1;COUNT=1';
+        $success = $this->Rrules->save($rrule);
+        $this->assertTrue((bool)$success);
+        $this->assertEquals(1, count($success->occurrences));
+    }
+
+    public function testReplaceStrategy()
+    {
+        // New
+        $rrule = $this->Rrules->newEntity();
+        $rrule->rrule = 'FREQ=YEARLY;INTERVAL=1;BYMONTH=1;BYMONTHDAY=1;COUNT=1';
+        $success = $this->Rrules->save($rrule);
+        $this->assertTrue((bool)$success);
+
+        // Update
+        $rrule->rrule = 'FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=1;COUNT=12';
+        $success = $this->Rrules->save($rrule);
+        $this->assertTrue((bool)$success);
+        $this->assertEquals(12, count($success->occurrences));
+    }
 }
