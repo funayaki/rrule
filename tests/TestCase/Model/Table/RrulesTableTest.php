@@ -96,4 +96,12 @@ class RrulesTableTest extends TestCase
         $this->assertTrue((bool)$success);
         $this->assertEquals(12, count($success->occurrences));
     }
+
+    public function testDeletingAssociatedOccurrences()
+    {
+        $rrule = $this->Rrules->get(1);
+        $this->Rrules->delete($rrule);
+        $exists = $this->Rrules->Occurrences->exists(['id' => 1]);
+        $this->assertFalse($exists);
+    }
 }
