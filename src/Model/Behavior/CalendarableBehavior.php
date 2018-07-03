@@ -44,8 +44,8 @@ class CalendarableBehavior extends Behavior
 
         $parts = $entity->{$field};
 
-        $rrule = $this->getRruleProcessor($parts);
-        $rruleFormatter = $this->getRruleFormatter();
+        $rrule = $this->_getRruleProcessor($parts);
+        $rruleFormatter = $this->_getRruleFormatter();
 
         // TODO Ensure the model associated with Occurrences model
         $occurrences = [];
@@ -111,7 +111,7 @@ class CalendarableBehavior extends Behavior
      * @param $rrule_parts
      * @return \Recurr\Rule
      */
-    public function getRruleProcessor($rrule_parts)
+    protected function _getRruleProcessor($rrule_parts)
     {
         return new Rule($rrule_parts);
     }
@@ -121,7 +121,7 @@ class CalendarableBehavior extends Behavior
      *
      * @return \Recurr\Transformer\ArrayTransformer
      */
-    public function getRruleFormatter()
+    protected function _getRruleFormatter()
     {
         $transformer = new ArrayTransformer();
         $transformerConfig = new ArrayTransformerConfig();
