@@ -44,8 +44,8 @@ class RrulesTable extends Table
         $this->hasMany('Occurrences', [
             'foreignKey' => 'rrule_id',
             'className' => 'Rrule.Occurrences',
-            'dependent' => true, // TODO Testing
-            'saveStrategy' => 'replace' // TODO Testing
+            'dependent' => true,
+            'saveStrategy' => 'replace'
         ]);
     }
 
