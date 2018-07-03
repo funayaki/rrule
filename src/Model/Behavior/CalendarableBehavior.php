@@ -40,7 +40,6 @@ class CalendarableBehavior extends Behavior
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
         $field = $this->getConfig('field');
-        $occurrenceModel = $this->getConfig('occurrenceModel');
 
         $parts = $entity->{$field};
 
