@@ -12,8 +12,9 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\ArrayTransformerConfig;
+use ReflectionClass;
 
-class CalendarableBehavior extends Behavior
+class SearchableBehavior extends Behavior
 {
 
     /**
@@ -41,12 +42,17 @@ class CalendarableBehavior extends Behavior
     {
         $field = $this->getConfig('field');
 
-        $parts = $entity->{$field};
+        $args = $entity->{$field};
 
-        $rrule = $this->_getRruleProcessor($parts);
+        if (!is_array($args)) {
+            $args = [$args];
+        }
+
+        $rrule = $this->_getRruleProcessor($args);
         $rruleFormatter = $this->_getRruleFormatter();
 
         // TODO Ensure the model associated with Occurrences model
+        $entity->{$field} = $rrule->getString();
         $occurrences = [];
         foreach ($rruleFormatter->transform($rrule) as $occurrence) {
             $oEntity = $this->_getOccurrencesModel()->newEntity();
@@ -112,7 +118,8 @@ class CalendarableBehavior extends Behavior
      */
     protected function _getRruleProcessor($rrule_parts)
     {
-        return new Rule($rrule_parts);
+        $class = new ReflectionClass('Recurr\Rule');
+        return $class->newInstanceArgs($rrule_parts);
     }
 
     /**

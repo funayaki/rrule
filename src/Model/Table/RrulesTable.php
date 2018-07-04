@@ -39,7 +39,7 @@ class RrulesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Rrule.Calendarable');
+        $this->addBehavior('Rrule.Searchable');
 
         $this->hasMany('Occurrences', [
             'foreignKey' => 'rrule_id',
